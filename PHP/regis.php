@@ -1,177 +1,200 @@
 <?php
-// Inisialisasi variabel pesan kesalahan
-$errors = [];
-
-// Inisialisasi variabel input
-$email = "";
-$password = "";
-$firstname = "";
-$lastname = "";
-$date = "";
-$address = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil data dari formulir
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $date = $_POST["date"];
-    $address = $_POST["address"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    // Validasi semua bidang
-    if (empty($firstname) || empty($lastname) || empty($email) || empty($password) || empty($address) || empty($date)) {
-        $errors[] = "All fields required";
-    }
-
-    // Validasi email
-    if (empty($email)) {
-        $errors[] = "Email is required";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Email is not valid";
-    }
-
-    // Validasi password
-    if (empty($password)) {
-        $errors[] = "Password is required";
-    } elseif (strlen($password) < 8) {
-        $errors[] = "Password must be at least 8 characters long";
-    }
-
-    // Jika tidak ada kesalahan, lanjutkan dengan proses selanjutnya
-    if (empty($errors)) {
-        // Lakukan sesuatu dengan data yang sudah divalidasi
-        // Misalnya, Anda bisa menyimpan data ke database atau melakukan tindakan lain.
-        // Di sini, kita hanya mencetak pesan sukses.
-        echo "Form submitted successfully!";
-    }
+session_start();
+if (isset($_SESSION["user"])) {
+    header("Location: login.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regesteration</title>
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
-
 <body>
-<?php if (!empty($errors)): ?>
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?php echo $error; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-    <h1>Register</h1>
-        <div class="container">
 
-            <form action="proses_regis.php"  method="post">    
-            <div class="from-group">
-                <label><b>First Name</b></label>
-                <input type="text" placeholder="First Name" name="firstname" id="FirstName" value="<?php echo $firstname; ?>"  />
+    <div class="container">
+        <form action="regis.php" method="post">
+        <?php
+        if (isset($_POST["submit"])) {
+            $firstname = $_POST["firstname"];
+            $lastname = $_POST["lastname"];
+            $date = $_POST["date"];
+            $address = $_POST["address"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+            $errors = array();
+
+            if (empty($firstname) or empty($lastname) or empty($date) or empty($address) or empty($email) or empty($password)) {
+                array_push($errors, "All fields are required");
+            }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                array_push($errors, "Email is not valid");
+            }
+            if (strlen($password) < 8) {
+                array_push($errors, "Password must be at least 8 charactes long");
+            }
+            require_once "db.php";
+            $sql = "SELECT * FROM user WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);
+            $rowCount = mysqli_num_rows($result);
+            if ($rowCount > 0) {
+                array_push($errors, "Email already exists!");
+            }
+            if (count($errors) > 0) {
+                foreach ($errors as  $error) {
+                    echo "<div class='alert alert-danger'>$error</div>";
+                }
+            } else {
+
+                $sql = "INSERT INTO user (email, password, firstname, lastname, date, address) VALUES ( ?, ?, ?, ?, ?, ? )";
+                $stmt = mysqli_stmt_init($conn);
+                $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
+                if ($prepareStmt) {
+                    mysqli_stmt_bind_param($stmt, "sss", $email, $passwordHash, $firstname, $lastname, $date, $address);
+                    mysqli_stmt_execute($stmt);
+                    echo "<div class='alert alert-success'>You are registered successfully.</div>";
+                } else {
+                    die("Something went wrong");
+                }
+            }
+        }
+        ?>
+            <h2>Registeration</h2>
+            <div class="regis">
+                <div class="form-group">
+                    <label><b>First Name</b></label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label><b>Last Name</b></label>
+                    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label><b>Date</b></label>
+                    <input type="date" class="form-control" name="date" placeholder="Date">
+                </div>
+                <div class="form-group">
+                    <label><b>Address</b></label>
+                    <input type="text" class="form-control" name="address" placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label><b>Email</b></label>
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label><b>Password</b></label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <div class="form-btn">
+                    <input type="submit" class="btn btn-primary" value="Register" name="submit">
+                </div>
             </div>
-            <div class="from-group">
-                <label><b>Last Name</b></label>
-                <input type="text" placeholder="Last Name" name="lastname" id="LastName" value="<?php echo $lastname; ?>"  />
+            <div>
+                <p>Already have an account ? <a href="login.php">Login Here</a></p>
             </div>
-            <div class="from-group">
-                <label><b>Date</b></label>
-                <input type="date" placeholder="Date" name="date" id="Date" value="<?php echo $date; ?>"  />
-            </div>
-            <div class="from-group">
-                <label><b>Address</b></label>
-                <input type="text" placeholder="Address" name="address" id="address" value="<?php echo $address; ?>"  />
-            </div>
-            <div class="from-group">
-                <label><b>Email</b></label>
-                <input type="email" placeholder="Email" name="email" id="email" value="<?php echo $email; ?>" />
-            </div>
-            <div class="from-group">
-                <label><b>Password</b></label>
-                <input type="password" placeholder="Password" name="password" id="password" value="<?php echo $password; ?>" />
-            </div>
-            <button type="submit" name="submit" class="registerbtn"> Submit
-        </div>
-        <div class="container signin">
-            <p>Already have an account? <a href="#">Log in</a>.</p>
-        </div>
-    </form>
+        </form>
+    </div>
 </body>
 <style>
     body {
-	height: 120vh;
-	flex-direction: column;
-}
+        margin-top: 60px;
+        flex-direction: column;
+    }
 
-.container{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
+    .container {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
 
-*{
-	font-family: sans-serif;
-	box-sizing: border-box;
-}
+    .container form .regis {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 
-form {
-	width: 400px;
-	border: 2px solid #ccc;
-	padding: 20px;
-	background: wheat;
-	border-radius: 15px;
-}
-input[type=text], input[type=password], input[type=email], input[type=date] {
-	display: block;
-	border: 2px solid #ccc;
-	width: 95%;
-	padding: 10px;
-	margin: 10px auto;
-	border-radius: 5px;
-}
-label {
-	color: #888;
-	font-size: 18px;
-	padding: 10px;
-}
-h1{
-    text-align: center;
-	margin-bottom: 40px;
-    font-family: 'Papyrus';
-}
-button[type=submit] {
-	
-	background: #555;
-	padding: 10px 15px;
-	color: #fff;
-	border-radius: 5px;
-	margin-left: 10px;
-	border: none;
-}
-input[type=submit]:hover{
-	opacity: .7;
-}
+    form .regis .form-group {
+        width: calc(100% / 2 - 20px);
+        margin: 20px 0 12px 0;
+    }
 
-.error{
-    padding: 20px;
-    background-color: #f44336;
-    color: #ffffff;
-    margin-bottom: 15px;
-}
+    .regis .form-group input {
+        height: 45px;
+        width: 100%;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        font-size: 16px;
+    }
 
-.alert{
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
+    * {
+        font-family: sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
+    form {
+        width: 100%;
+        max-width: 700px;
+        border: 2px solid #ccc;
+        padding: 20px;
+        background: wheat;
+        border-radius: 15px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 20px;
+        font-family: 'Papyrus';
+    }
+
+    .from-btn {
+        width: 100%;
+    }
+
+    input[type=submit] {
+
+        background: #555;
+        padding: 10px 15px;
+        color: #fff; 
+        border-radius: 5px;
+        margin-left: 10px;
+        border: none;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    input[type=submit]:hover {
+        opacity: .7;
+    }
+
+    @media (max-width: 548px) {
+        .container {
+            max-width: 100%;
+        }
+
+        .container form .regis {
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        form .regis .from-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+    }
 </style>
+
 </html>
- 
