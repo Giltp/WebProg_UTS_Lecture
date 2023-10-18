@@ -1,47 +1,59 @@
 <?php
-
-$dsn = "mysql:host=localhost;dbname=restoranif330";
-$kunci = new PDO($dsn, "root", "");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $password = $_POST["pass"];
-
-    // Memeriksa apakah email dan password cocok dalam database
-    $cek_sql = "SELECT * FROM user WHERE email = ? AND password = ?";
-    $cek_stmt = $kunci->prepare($cek_sql);
-    $cek_stmt->execute([$email, $password]);
-
-    if ($cek_stmt->rowCount() > 0) {
-        // Login berhasil, lakukan tindakan setelah login
-        echo "Login berhasil!";
-    } else {
-        // Email atau password salah
-        echo "Email atau password salah";
-    }
+session_start();
+if (isset($_SESSION["user"])) {
+    header("Location: index.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Login</h1>
-    <form action="" method="post"> <!-- Change action to an empty string to post to the same page -->
-        <div class="container">    
-            <label><b>Email</b></label>
-            <input type="text" placeholder="Email" name="email" id="email" required>
-            <br>
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Password" name="pass" id="pass" required>
-            <br>
-            <button type="submit" class="registerbtn">Submit</button>
+    <form action="login.php" method="post">
+        <?php
+            if(isset($_POST["submit"])){
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+                require_once "db.php";
+                $sql = "SELECT * FROM user WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);
+                $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                if ($user) {
+                    if (password_verify($password, $user["password"])) {
+                        session_start();
+                        $_SESSION["user"] = "yes";
+                        header("Location: index.php");
+                        die();
+                    }else{
+                        echo "<div class='alert alert-danger'>Password does not match</div>";
+                    }
+                }else{
+                    echo "<div class='alert alert-danger'>Email does not match</div>";
+                }
+            }
+        ?>
+        <div class="container"> 
+        <h2>Login</h2>
+            <div class="login">
+                <div class="form-group">
+                    <label><b>Email</b></label>
+                    <input type="email" placeholder="Email" name="email" id="email" >
+                </div>
+                <div class="form-group">
+                    <label><b>Password</b></label>
+                    <input type="password" placeholder="Password" name="password" id="password" >
+                </div>
+                <div class="form-submit">
+                    <input type="submit" name="submit" value="Log In" class="btn btn-primary">
+                </div>
+            </div>
         </div>
         <div class="container signin">
             <p>Don't have an account yet? <a href="regis.php">Register</a>.</p>
@@ -55,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 90vh;
+	height: 100vh;
 	flex-direction: column;
 }
 
@@ -65,13 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 form {
-	width: 350px;
+	width: 400px;
 	border: 2px solid #ccc;
 	padding: 20px;
 	background: wheat;
 	border-radius: 15px;
 }
-input[type=text], input[type=password] {
+input[type=email], input[type=password] {
 	display: block;
 	border: 2px solid #ccc;
 	width: 95%;
@@ -80,26 +92,45 @@ input[type=text], input[type=password] {
 	border-radius: 5px;
 }
 label {
-	color: #888;
 	font-size: 18px;
 	padding: 10px;
 }
-h1{
-    text-align: center;
-	margin-bottom: 40px;
-    font-family: 'Papyrus';
-}
-button {
-	
+h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 20px;
+        font-family: 'Papyrus';
+    }
+input[type=submit] {
 	background: #555;
-	padding: 10px 15px;
-	color: #fff;
-	border-radius: 5px;
-	margin-left: 10px;
-	border: none;
+    padding: 10px 15px;
+    color: #fff; 
+    border-radius: 5px;
+    margin-left: 10px;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-button:hover{
+input[type=submit]:hover{
 	opacity: .7;
 }
+
+@media (max-width: 375px) {
+        .container {
+            max-width: 100%;
+        }
+
+        .container form .login {
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        form .login .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+    }
 </style>
 </html>
