@@ -19,55 +19,55 @@ if (isset($_SESSION["user"])) {
 
     <div class="container">
         <form action="regis.php" method="post">
-        <?php
-        if (isset($_POST["submit"])) {
-            $firstname = $_POST["firstname"];
-            $lastname = $_POST["lastname"];
-            $date = $_POST["date"];
-            $address = $_POST["address"];
-            $email = $_POST["email"];
-            $password = $_POST["password"];
+            <?php
+            if (isset($_POST["submit"])) {
+                $firstname = $_POST["firstname"];
+                $lastname = $_POST["lastname"];
+                $date = $_POST["date"];
+                $address = $_POST["address"];
+                $email = $_POST["email"];
+                $password = $_POST["password"];
 
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-            $errors = array();
+                $errors = array();
 
-            if (empty($firstname) or empty($lastname) or empty($date) or empty($address) or empty($email) or empty($password)) {
-                array_push($errors, "All fields are required");
-            }
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                array_push($errors, "Email is not valid");
-            }
-            if (strlen($password) < 8) {
-                array_push($errors, "Password must be at least 8 charactes long");
-            }
-            require_once "db.php";
-            $sql = "SELECT * FROM user WHERE email = '$email'";
-            $result = mysqli_query($conn, $sql);
-            $rowCount = mysqli_num_rows($result);
-            if ($rowCount > 0) {
-                array_push($errors, "Email already exists!");
-            }
-            if (count($errors) > 0) {
-                foreach ($errors as  $error) {
-                    echo "<div class='alert alert-danger'>$error</div>";
+                if (empty($firstname) or empty($lastname) or empty($date) or empty($address) or empty($email) or empty($password)) {
+                    array_push($errors, "All fields are required");
                 }
-            } else {
-
-                $sql = "INSERT INTO user (email, password, firstname, lastname, date, address) VALUES ( ?, ?, ?, ?, ?, ? )";
-                $stmt = mysqli_stmt_init($conn);
-                $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
-                if ($prepareStmt) {
-                    mysqli_stmt_bind_param($stmt, "sss", $email, $passwordHash, $firstname, $lastname, $date, $address);
-                    mysqli_stmt_execute($stmt);
-                    echo "<div class='alert alert-success'>You are registered successfully.</div>";
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    array_push($errors, "Email is not valid");
+                }
+                if (strlen($password) < 8) {
+                    array_push($errors, "Password must be at least 8 charactes long");
+                }
+                require_once "db.php";
+                $sql = "SELECT * FROM user WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);
+                $rowCount = mysqli_num_rows($result);
+                if ($rowCount > 0) {
+                    array_push($errors, "Email already exists!");
+                }
+                if (count($errors) > 0) {
+                    foreach ($errors as  $error) {
+                        echo "<div class='alert alert-danger'>$error</div>";
+                    }
                 } else {
-                    die("Something went wrong");
+
+                    $sql = "INSERT INTO user (email, password, firstname, lastname, date, address) VALUES ( ?, ?, ?, ?, ?, ? )";
+                    $stmt = mysqli_stmt_init($conn);
+                    $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
+                    if ($prepareStmt) {
+                        mysqli_stmt_bind_param($stmt, "sss", $email, $passwordHash, $firstname, $lastname, $date, $address);
+                        mysqli_stmt_execute($stmt);
+                        echo "<div class='alert alert-success'>You are registered successfully.</div>";
+                    } else {
+                        die("Something went wrong");
+                    }
                 }
             }
-        }
-        ?>
-            <h2>Registeration</h2>
+            ?>
+            <h2><b>Registeration</b></h2>
             <div class="regis">
                 <div class="form-group">
                     <label><b>First Name</b></label>
@@ -93,10 +93,10 @@ if (isset($_SESSION["user"])) {
                     <label><b>Password</b></label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
-                <div class="form-btn">
+            </div>
+            <div class="form-btn">
                     <input type="submit" class="btn btn-primary" value="Register" name="submit">
                 </div>
-            </div>
             <div>
                 <p>Already have an account ? <a href="login.php">Login Here</a></p>
             </div>
@@ -107,6 +107,11 @@ if (isset($_SESSION["user"])) {
     body {
         margin-top: 60px;
         flex-direction: column;
+        background-image: url(../images/background_home.png);
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
     .container {
@@ -130,34 +135,32 @@ if (isset($_SESSION["user"])) {
         height: 45px;
         width: 100%;
         outline: none;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        border-radius: 1px;
+        border: 2px solid #ccc;
         padding-left: 15px;
         font-size: 16px;
     }
 
     * {
-        font-family: sans-serif;
+        font-family: 'Poppins', sans-serif;
         box-sizing: border-box;
         margin: 0;
         padding: 0;
     }
-    
 
     form {
         width: 100%;
         max-width: 700px;
         border: 2px solid #ccc;
-        padding: 20px;
-        background: wheat;
-        border-radius: 15px;
+        padding: 20px 40px 20px 40px;
+        background: white;
+        border-radius: 10px;
     }
 
     h2 {
         text-align: center;
-        margin-bottom: 40px;
-        margin-top: 20px;
-        font-family: 'Papyrus';
+        margin-bottom: 20px;
+        margin-top: 10px;
     }
 
     .from-btn {
@@ -168,7 +171,7 @@ if (isset($_SESSION["user"])) {
 
         background: #555;
         padding: 10px 15px;
-        color: #fff; 
+        color: #fff;
         border-radius: 5px;
         margin-left: 10px;
         border: none;
@@ -179,6 +182,7 @@ if (isset($_SESSION["user"])) {
 
     input[type=submit]:hover {
         opacity: .7;
+        background-color: orange;
     }
 
     @media (max-width: 548px) {

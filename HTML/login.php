@@ -40,7 +40,7 @@ if (isset($_SESSION["user"])) {
             }
         ?>
         <div class="container"> 
-        <h2>Login</h2>
+        <h2><b>Login</b></h2>
             <div class="login">
                 <div class="form-group">
                     <label><b>Email</b></label>
@@ -69,6 +69,11 @@ if (isset($_SESSION["user"])) {
 	align-items: center;
 	height: 100vh;
 	flex-direction: column;
+    background-image: url(../images/background_home.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 *{
@@ -80,8 +85,8 @@ form {
 	width: 400px;
 	border: 2px solid #ccc;
 	padding: 20px;
-	background: wheat;
-	border-radius: 15px;
+	background: white;
+	border-radius: 10px;
 }
 input[type=email], input[type=password] {
 	display: block;
@@ -89,7 +94,7 @@ input[type=email], input[type=password] {
 	width: 95%;
 	padding: 10px;
 	margin: 10px auto;
-	border-radius: 5px;
+	border-radius: 1px;
 }
 label {
 	font-size: 18px;
@@ -97,9 +102,9 @@ label {
 }
 h2 {
         text-align: center;
-        margin-bottom: 40px;
-        margin-top: 20px;
-        font-family: 'Papyrus';
+        margin-bottom: 20px;
+        margin-top: 10px;
+        
     }
 input[type=submit] {
 	background: #555;
@@ -114,6 +119,7 @@ input[type=submit] {
 }
 input[type=submit]:hover{
 	opacity: .7;
+    background-color: orange;
 }
 
 @media (max-width: 375px) {
