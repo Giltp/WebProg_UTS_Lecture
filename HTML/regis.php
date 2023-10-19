@@ -142,6 +142,7 @@ if (isset($_SESSION["user"])) {
         margin: 0;
         padding: 0;
     }
+    
 
     form {
         width: 100%;
