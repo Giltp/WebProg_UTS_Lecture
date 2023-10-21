@@ -11,6 +11,14 @@ body {
     overflow: hidden;
 }
 
+.title {
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 2.5rem;
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
 #text{
     position: relative;
     width: 100vw;
@@ -119,4 +127,49 @@ body {
 #phone a:hover{
     background: rgb(50, 50, 50);
     cursor: pointer;
+}
+
+/*Menu.html*/
+.category .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.category .box-container .box{
+    border-style: solid;
+    padding: 1rem;
+    text-align: center;
+}
+
+.category .box-container .box img{
+    width: 50%;
+    height: 15rem;
+    object-fit: contain;
+}
+
+.category .box-container .box h3{
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    color:black;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.category .box-container .box a{
+    text-decoration: none;
+}
+
+.category .box-container .box:hover{
+    background-color: var(--black);
+}
+
+.category .box-container .box:hover img{
+    transform: scale(1.5);
+    transition: transform 0.2s;
+}
+
+.category .box-container .box:hover h3{
+    color: var(--white);
 }
