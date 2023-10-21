@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
-    header("Location: index.php");
+    header("Location: Menu.php");
 }
 ?>
 <!DOCTYPE html>
@@ -16,6 +16,9 @@ if (isset($_SESSION["user"])) {
 </head>
 
 <body>
+    <?php
+        include 'Header.php';
+    ?>
     <form action="login.php" method="post">
         <?php
             if(isset($_POST["submit"])){
@@ -59,6 +62,9 @@ if (isset($_SESSION["user"])) {
             <p>Don't have an account yet? <a href="regis.php">Register</a>.</p>
         </div>
     </form>
+    <?php
+        include 'Footer.php';
+    ?>
 </body>
 
 <style>
@@ -69,11 +75,6 @@ if (isset($_SESSION["user"])) {
 	align-items: center;
 	height: 100vh;
 	flex-direction: column;
-    background-image: url(../images/background_home.png);
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 *{
