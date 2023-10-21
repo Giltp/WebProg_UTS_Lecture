@@ -112,11 +112,6 @@ if (isset($_SESSION["user"])) {
     body {
         margin-top: 60px;
         flex-direction: column;
-        background-image: url(../images/background_home.png);
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
     }
 
     .container {
