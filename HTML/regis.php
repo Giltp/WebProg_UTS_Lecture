@@ -54,11 +54,11 @@ if (isset($_SESSION["user"])) {
                     }
                 } else {
 
-                    $sql = "INSERT INTO user (email, password, firstname, lastname, date, address) VALUES ( ?, ?, ?, ?, ?, ? )";
+                    $sql = "INSERT INTO user (email, password, nama_depan, nama_belakang, tanggal_lahir, alamat) VALUES ( ?, ?, ?, ?, ?, ? )";
                     $stmt = mysqli_stmt_init($conn);
                     $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
                     if ($prepareStmt) {
-                        mysqli_stmt_bind_param($stmt, "sss", $email, $passwordHash, $firstname, $lastname, $date, $address);
+                        mysqli_stmt_bind_param($stmt, "ssssss", $email, $passwordHash, $firstname, $lastname, $date, $address);
                         mysqli_stmt_execute($stmt);
                         echo "<div class='alert alert-success'>You are registered successfully.</div>";
                     } else {
