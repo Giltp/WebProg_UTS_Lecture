@@ -16,7 +16,9 @@ if (isset($_SESSION["user"])) {
 </head>
 
 <body>
-
+    <?
+        include 'Header.php';
+    ?>
     <div class="container">
         <form action="regis.php" method="post">
             <?php
@@ -103,6 +105,9 @@ if (isset($_SESSION["user"])) {
         </form>
     </div>
 </body>
+<?
+    include 'Footer.php';
+?>
 <style>
     body {
         margin-top: 60px;
