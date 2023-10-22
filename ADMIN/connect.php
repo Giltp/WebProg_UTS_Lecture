@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('SITEURL', 'http://localhost:8000/HTML/Home.php');
+define('SITEURL', 'http://localhost:8000');
 define('LOCALHOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');

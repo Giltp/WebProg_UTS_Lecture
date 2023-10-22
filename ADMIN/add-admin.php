@@ -1,4 +1,5 @@
-<?php include 'admin_header.php';?>
+<?php include 'admin_header.php';
+?>
 
     <div class="main-content">
         <div class="wrapper">
@@ -63,10 +64,10 @@
         if($res==TRUE)
         {
             $_SESSION['add'] = "Admin Added";
-            header("location:".SITEURL. 'ADMIN/manage_admin.php');
+            header("location:".SITEURL. '/ADMIN/manage_admin.php');
         }else{
             $_SESSION['add'] = "Failed to Add Admin";
-            header("location:".SITEURL. 'ADMIN/add-admin.php');
+            header("location:".SITEURL. '/ADMIN/add-admin.php');
         }
     }
 
