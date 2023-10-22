@@ -73,7 +73,7 @@ if (isset($_SESSION["user"])) {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	height: 140vh;
 	flex-direction: column;
 }
 
