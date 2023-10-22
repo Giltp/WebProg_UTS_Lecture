@@ -12,11 +12,12 @@ if (isset($_SESSION["user"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <?
+    <?php
         include 'Header.php';
     ?>
     <div class="container">
@@ -103,14 +104,13 @@ if (isset($_SESSION["user"])) {
                 <p>Already have an account ? <a href="login.php">Login Here</a></p>
             </div>
         </form>
-    </div>
+    </div><br><br><br><br>
+    <?php
+        include 'Footer.php';
+    ?>
 </body>
-<?
-    include 'Footer.php';
-?>
 <style>
     body {
-        margin-top: 60px;
         flex-direction: column;
     }
 
@@ -118,6 +118,7 @@ if (isset($_SESSION["user"])) {
         align-items: center;
         justify-content: center;
         display: flex;
+        margin-top: -300px;
     }
 
     .container form .regis {
@@ -161,6 +162,7 @@ if (isset($_SESSION["user"])) {
         text-align: center;
         margin-bottom: 20px;
         margin-top: 10px;
+        font-size: 30px;
     }
 
     .from-btn {
@@ -178,6 +180,7 @@ if (isset($_SESSION["user"])) {
         width: 100%;
         margin-top: 20px;
         margin-bottom: 20px;
+        font-size: 16px;
     }
 
     input[type=submit]:hover {
