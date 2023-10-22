@@ -12,7 +12,7 @@ if (isset($_SESSION["user"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -61,7 +61,7 @@ if (isset($_SESSION["user"])) {
         <div class="container signin">
             <p>Don't have an account yet? <a href="regis.php">Register</a>.</p>
         </div>
-    </form>
+    </form><br><br><br><br>
     <?php
         include 'Footer.php';
     ?>
@@ -73,7 +73,7 @@ if (isset($_SESSION["user"])) {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 140vh;
+	
 	flex-direction: column;
 }
 
@@ -88,6 +88,7 @@ form {
 	padding: 20px;
 	background: white;
 	border-radius: 10px;
+    margin-top: -300px;
 }
 input[type=email], input[type=password] {
 	display: block;
@@ -96,6 +97,8 @@ input[type=email], input[type=password] {
 	padding: 10px;
 	margin: 10px auto;
 	border-radius: 1px;
+    margin-bottom: 40px;
+    height: 50px;
 }
 label {
 	font-size: 18px;
@@ -105,14 +108,14 @@ h2 {
         text-align: center;
         margin-bottom: 20px;
         margin-top: 10px;
-        
+        font-size: 30px;
     }
 input[type=submit] {
 	background: #555;
     padding: 10px 15px;
     color: #fff; 
     border-radius: 5px;
-    margin-left: 10px;
+    font-size: 16px;
     border: none;
     width: 100%;
     margin-top: 20px;
