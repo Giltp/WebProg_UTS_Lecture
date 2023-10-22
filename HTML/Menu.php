@@ -28,23 +28,17 @@ if(isset($_SESSION['user_id'])){
     <title>Restaurant</title>
 </head>
 <body>
-
-<div id="header">
-    <nav id="navbar">
-        <h1>Restaurant</h1>
-        <ul>
-            <li><a href="Home.html">Home</a></li>
-            <li><a href="Menu.html">Menu</a></li>
-            <li><a href="">Chef</a></li>
-            <li><a href="AboutUS.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div id="phone">
-            <a href="regis.php">Register</a>
-            <a href="login.php">Login</a>
+<section id="Home">
+    <?php
+        include 'Header.php';
+    ?>
+        <div class="main">
+            <div class="men_text">
+                <h1>5<span>Star</span><br>Restaurant</h1>
+            </div>
         </div>
-    </nav>
-</div>
+    </section>
+
 
 <section class="category">
     <h1 class="title">Food Category</h1>
@@ -111,5 +105,9 @@ if(isset($_SESSION['user_id'])){
     </div>
 </section>
 
+
+    <?php
+        include 'Footer.php';
+    ?>
 </body>
 </html>
