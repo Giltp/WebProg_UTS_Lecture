@@ -15,10 +15,10 @@
                 <h1>IF330Restaurant</h1>
             </div>
             <ul>
-                <li><a href="Home.html">Home</a></li>
-                <li><a href="About.html">About</a></li>
-                <li><a href="#Menu">Menu</a></li>
-                <li><a href="#Order">Order</a></li>
+                <li><a href="Home.php">Home</a></li>
+                <li><a href="About.php">About</a></li>
+                <li><a href="Menu.php">Menu</a></li>
+                <li><a href="order.php">Order</a></li>
             </ul>
             <div class="icon">
                 <a href="../HTML/regis.php">Register</a>
