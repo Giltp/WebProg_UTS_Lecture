@@ -61,7 +61,7 @@
                                         <td><?php echo $full_name?></td>
                                         <td>
                                             <a href="<?php echo SITEURL;?>/ADMIN/update-admin.php?email_admin=<?php echo $email?>" class="btn-secondary">Update Admin</a>
-                                            <a href="delete-admin.php?email_admin=<?php echo $email?>" class="btn-danger">Delete Admin</a>
+                                            <a href="<?php echo SITEURL;?>/ADMIN/delete-admin.php?email_admin=<?php echo $email?>" class="btn-danger">Delete Admin</a>
                                         </td>
                                     </tr>
 

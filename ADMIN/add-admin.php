@@ -42,9 +42,6 @@
         </div>
     </div>
 
-
-<?php include '../HTML/Footer.php';?>
-
 <?php
 
     if(isset($_POST['submit']))
@@ -64,14 +61,17 @@
         if($res==TRUE)
         {
             $_SESSION['add'] = "Admin Added";
-            header("location:".SITEURL. '/ADMIN/manage_admin.php');
+            header('location:'.SITEURL.'/ADMIN/manage_admin.php');
         }else{
             $_SESSION['add'] = "Failed to Add Admin";
-            header("location:".SITEURL. '/ADMIN/add-admin.php');
+            header('location:'.SITEURL.'/ADMIN/add-admin.php');
         }
     }
 
 ?>
+
+
+<?php include '../HTML/Footer.php';?>
 
 <style>
     .wrapper{

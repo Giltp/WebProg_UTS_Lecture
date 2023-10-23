@@ -7,43 +7,97 @@
 
             <br />
 
-            <a href="#" class="btn-primary">ADD CATEGORY</a>
+            <?php
+                if(isset($_SESSION['add']))
+                {
+                    echo $_SESSION['add'];
+                    unset($_SESSION['add']);
+                }
+
+                if(isset($_SESSION['remove']))
+                {
+                    echo $_SESSION['remove'];
+                    unset($_SESSION['remove']);
+                }
+
+                if(isset($_SESSION['delete']))
+                {
+                    echo $_SESSION['delete'];
+                    unset($_SESSION['delete']);
+                }
+            ?>
+
+            <a href="<?php echo SITEURL?>/ADMIN/add-category.php" class="btn-primary">ADD CATEGORY</a>
 
             <br />
             
             <table class="tbl-full">
                 <tr>
-                    <th>Email</th>
-                    <th>Full Name</th>
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Featured</th>
+                    <th>Active</th>
                     <th>Actions</th>
                 </tr>
 
-                <tr>
-                    <td>tsbpakpahan@gmail.com</td>
-                    <td>Gilbert Pakpahan</td>
-                    <td>
-                        <a href="#" class="btn-secondary">Update Admin</a>
-                        <a href="#" class="btn-danger">Delete Admin</a>
-                    </td>
-                </tr>
+                <?php
+                    $sql = "SELECT * FROM cart";
+                    $res = mysqli_query($conn, $sql);
+                    $count = mysqli_num_rows($res);
+                    $no = 1;
+                    if($count>0)
+                    {
+                        while ($row=mysqli_fetch_assoc($res))
+                        {
+                            $id = $row['id'];
+                            $title = $row['title'];
+                            $image_name = $row['image_name'];
+                            $featured = $row['featured'];
+                            $active = $row['active'];
 
-                <tr>
-                    <td>tsbpakpahan@gmail.com</td>
-                    <td>Gilbert Pakpahan</td>
-                    <td>
-                        <a href="#" class="btn-secondary">Update Admin</a>
-                        <a href="#" class="btn-danger">Delete Admin</a>
-                    </td>
-                </tr>
+                            ?>
 
-                <tr>
-                    <td>tsbpakpahan@gmail.com</td>
-                    <td>Gilbert Pakpahan</td>
-                    <td>
-                        <a href="#" class="btn-secondary">Update Admin</a>
-                        <a href="#" class="btn-danger">Delete Admin</a>
-                    </td>
-                </tr>
+                                <tr>
+                                    <td><?php echo $no++;?></td>
+                                    <td><?php echo $title;?></td>
+
+                                    <td>
+                                        <?php
+                                            if($image_name!="")
+                                            {
+                                                ?>
+
+                                                <img src="<?php echo SITEURL;?>/images/Category/<?php echo $image_name?>" width="100px">
+
+                                                <?php
+                                            }else{
+                                                echo "No Image";
+                                            }
+
+                                        ?>
+                                    </td>
+
+                                    <td><?php echo $featured?></td>
+                                    <td><?php echo $active?></td>
+                                    <td>
+                                        <a href="<?php echo SITEURL;?>/ADMIN/delete-category.php?id=<?php echo $id;?>&image_name=<?php echo $image_name?>" class="btn-danger">Delete Category</a>
+                                    </td>
+                                </tr>
+
+                            <?php
+                        }
+                    }else{
+                        ?>
+                        <tr>
+                            <td colspan="6">
+                                <div class="error">No Category Added</div>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                
+                ?>
 
                 
             </table>
