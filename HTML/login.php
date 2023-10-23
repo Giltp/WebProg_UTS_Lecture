@@ -24,6 +24,7 @@ if (isset($_SESSION["user"])) {
             if(isset($_POST["submit"])){
                 $email = $_POST["email"];
                 $password = $_POST["password"];
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                 require_once "db.php";
                 $sql = "SELECT * FROM user WHERE email = '$email'";
                 $result = mysqli_query($conn, $sql);
@@ -60,6 +61,7 @@ if (isset($_SESSION["user"])) {
         </div>
         <div class="container signin">
             <p>Don't have an account yet? <a href="regis.php">Register</a>.</p>
+            <p>An Admin? <a href="../ADMIN/login_admin.php">Login Here</a></p>
         </div>
     </form><br><br><br><br>
     <?php
