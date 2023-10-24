@@ -15,32 +15,31 @@
     ?>
         <div class="main">
             <div class="men_text">
-                <h1>5<span>Star</span><br>Restaurant</h1>
+                <h1>5<span>Star</span><br>Restaurant's<span>Members</span></h1>
             </div>
         </div>
     </section>
 
 
     <section class="member">
-
         <div class="card">
-            <img src="" alt="">
+            <img src="../images/Anthonio 2.jpeg" alt="Anthonio Puerturo Bulo">
             <div class="container">
                 <h4><b>Anthonio Puerturo Bulo</b></h4>
                 <p>Front End & Back End</p>
             </div>
         </div>
-    
+
         <div class="card">
-            <img src="" alt="">
+            <img src="../images/Gilbert_Pakpahan.jpeg" alt="Gilbert Parluhutan Pakpahan">
             <div class="container">
                 <h4><b>Gilbert Parluhutan Pakpahan</b></h4>
-                <p>Front End</p>
+                <p>Front End & Back End</p>
             </div>
         </div>
 
         <div class="card">
-            <img src="" alt="">
+            <img src="../images/Danie_Isaach.jpeg" alt="Daniel Isaach Hutaon Siregar">
             <div class="container">
                 <h4><b>Daniel Isaach Hutaon Siregar</b></h4>
                 <p>Front End</p>
@@ -48,13 +47,12 @@
         </div>
 
         <div class="card">
-            <img src="" alt="">
+            <img src="../images/Ilham.jpeg" alt="Muhammad Ilham Salsabillah">
             <div class="container">
                 <h4><b>Muhammad Ilham Salsabillah</b></h4>
-                <p>Moral Support</p>
+                <p>Moral Support & Web Hosting Provider</p>
             </div>
         </div>
-
     </section>
 
     <?php

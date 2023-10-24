@@ -41,7 +41,7 @@ section .main .men_text h1 span{
 
 .menu{
     width: 100%;
-    padding: 70px 0;
+    padding: 20px 20px;
 }
 
 .menu h1{
@@ -77,6 +77,7 @@ section .main .men_text h1 span{
 }
 
 .menu .menu_box .menu_card{
+    margin-right: 50px;
     width: 325px;
     height: 480px;
     padding-top: 10px;
@@ -175,3 +176,87 @@ section .main .men_text h1 span{
     margin: 0 80px;
     transition: 0.3s;
 }
+
+/* Category */
+
+.our_category{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 60px;
+    position: relative;
+    left: 20px;
+    margin-top: 100px;
+}
+
+.our_category h2{
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.category_boxes{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.category_box{
+    width: 200px;
+    height: 200px;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category_box img{
+    width: 100%;
+    height: fit-content;
+    object-fit: cover;
+}
+
+.category_box h3{
+    font-size: 20px;
+    margin-top: 10px;
+    color: #000;
+}
+
+/*About Us*/
+
+.member {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card {
+    width: 300px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.card h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #666;
+    font-size: 16px;
+}
+

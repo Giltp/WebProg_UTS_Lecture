@@ -1,6 +1,5 @@
 <?php 
-    include '../ADMIN/connect.php';
-    include '../HTML/Menu.php'; 
+    include 'admin_header.php'; 
 ?>
 
 <div class="main-content">
