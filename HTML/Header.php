@@ -16,9 +16,9 @@
             </div>
             <ul>
                 <li><a href="../HTML/Home.php">Home</a></li>
-                <li><a href="../HTML/AboutUS.php">About</a></li>
                 <li><a href="../HTML/Menu.php">Menu</a></li>
                 <li><a href="../HTML/Order.php">Order</a></li>
+                <li><a href="../HTML/AboutUS.php">About</a></li>
             </ul>
             <div class="icon">
                 <a href="../HTML/regis.php">Register</a>
