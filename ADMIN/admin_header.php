@@ -1,4 +1,6 @@
-<?php include 'connect.php'?>
+<?php include 'connect.php';
+    include 'login_check.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,7 @@
                 <li><a href="manage_category.php">Category</a></li>
                 <li><a href="manage_food.php">Food</a></li>
                 <li><a href="manage_order.php">Order</a></li>
+                <li><a href="logout_admin.php">Logout</a></li>
             </ul>
         </nav>
     </section>

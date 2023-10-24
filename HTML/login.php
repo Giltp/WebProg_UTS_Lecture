@@ -1,8 +1,5 @@
 <?php
-session_start();
-if (isset($_SESSION["user"])) {
-    header("Location: Menu.php");
-}
+include ('../ADMIN/connect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +21,7 @@ if (isset($_SESSION["user"])) {
             if(isset($_POST["submit"])){
                 $email = $_POST["email"];
                 $password = $_POST["password"];
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                 require_once "db.php";
                 $sql = "SELECT * FROM user WHERE email = '$email'";
                 $result = mysqli_query($conn, $sql);
@@ -32,7 +30,7 @@ if (isset($_SESSION["user"])) {
                     if (password_verify($password, $user["password"])) {
                         session_start();
                         $_SESSION["user"] = "yes";
-                        header("Location: index.php");
+                        header("Location:".SITEURL.'/HTML/Home.php');
                         die();
                     }else{
                         echo "<div class='alert alert-danger'>Password does not match</div>";
@@ -60,6 +58,7 @@ if (isset($_SESSION["user"])) {
         </div>
         <div class="container signin">
             <p>Don't have an account yet? <a href="regis.php">Register</a>.</p>
+            <p>An Admin? <a href="../ADMIN/login_admin.php">Login Here</a></p>
         </div>
     </form><br><br><br><br>
     <?php

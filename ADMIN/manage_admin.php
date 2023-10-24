@@ -25,6 +25,12 @@
                     echo $_SESSION['update'];
                     unset($_SESSION['update']);
                 }
+
+                if(isset($_SESSION['login']))
+                {
+                    echo $_SESSION['login'];
+                    unset ($_SESSION['login']);
+                }
             ?>
 
             <a href="add-admin.php" class="btn-primary">ADD ADMIN</a>
